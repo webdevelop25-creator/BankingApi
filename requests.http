@@ -8,3 +8,12 @@ Content-Type: application/json
   "email": "marina@test.de",
   "password": "MeinPasswort123"
 }
+
+### Create account
+POST http://localhost:8080/api/accounts
+Content-Type: application/json
+
+{
+  "userId": "e23d3bcc-c59a-4923-ae9e-cadc944efe55",
+  "accountType": "CHECKING"
+}
