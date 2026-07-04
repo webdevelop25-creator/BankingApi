@@ -17,3 +17,13 @@ Content-Type: application/json
   "userId": "e23d3bcc-c59a-4923-ae9e-cadc944efe55",
   "accountType": "CHECKING"
 }
+
+### Deposit
+POST http://localhost:8080/api/transactions/deposit
+Content-Type: application/json
+
+{
+  "accountId": "85a013b8-cd1a-414b-b553-cea3f724a506",
+  "amount": 100.00,
+  "description": "Initial deposit"
+}
