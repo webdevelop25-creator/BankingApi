@@ -3,6 +3,7 @@ import com.marina.bankingapi.auth.dto.RegisterRequest;
 import com.marina.bankingapi.auth.dto.RegisterResponse;
 import com.marina.bankingapi.auth.entity.User;
 import com.marina.bankingapi.auth.repository.UserRepository;
+import com.marina.bankingapi.common.exception.EmailAlreadyExistsException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -19,7 +20,7 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public RegisterResponse register(RegisterRequest request) {
         if (userRepository.existsByEmail(request.getEmail())) {
-            throw new RuntimeException("Email is already registered");
+            throw new EmailAlreadyExistsException(request.getEmail());
         }
 
         String customerNumber = generateCustomerNumber();
