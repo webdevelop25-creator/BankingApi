@@ -1,0 +1,52 @@
+package com.marina.bankingapi.auth.service;
+import com.marina.bankingapi.auth.dto.RegisterRequest;
+import com.marina.bankingapi.auth.dto.RegisterResponse;
+import com.marina.bankingapi.auth.entity.User;
+import com.marina.bankingapi.auth.repository.UserRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+import org.springframework.security.crypto.password.PasswordEncoder;
+
+import java.time.LocalDateTime;
+import java.util.UUID;
+
+@Service
+@RequiredArgsConstructor
+public class AuthServiceImpl implements AuthService {
+    private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
+
+    @Override
+    public RegisterResponse register(RegisterRequest request) {
+        if (userRepository.existsByEmail(request.getEmail())) {
+            throw new RuntimeException("Email is already registered");
+        }
+
+        String customerNumber = generateCustomerNumber();
+
+        User user = User.builder()
+                .firstName(request.getFirstName())
+                .lastName(request.getLastName())
+                .dateOfBirth(request.getDateOfBirth())
+                .customerNumber(customerNumber)
+                .email(request.getEmail())
+                .passwordHash(passwordEncoder.encode(request.getPassword()))
+                .role("USER")
+                .enabled(true)
+                .createdAt(LocalDateTime.now())
+                .build();
+
+        User savedUser = userRepository.save(user);
+
+        return new RegisterResponse(
+                savedUser.getId(),
+                savedUser.getCustomerNumber(),
+                savedUser.getEmail()
+        );
+    }
+
+    private String generateCustomerNumber() {
+        return "CUST-" + UUID.randomUUID().toString().substring(0, 8).toUpperCase();
+    }
+
+}
