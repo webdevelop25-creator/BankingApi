@@ -10,6 +10,7 @@ import com.marina.bankingapi.auth.entity.User;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 
 @Service
@@ -43,6 +44,21 @@ public class AccountServiceImpl implements AccountService {
                 savedAccount.getBalance(),
                 savedAccount.getAccountType(),
                 savedAccount.isActive()
+        );
+    }
+
+    @Override
+    public AccountResponse getAccountById(UUID accountId) {
+
+        Account account = accountRepository.findById(accountId)
+                .orElseThrow(() -> new RuntimeException("Account not found"));
+
+        return new AccountResponse(
+                account.getId(),
+                account.getIban(),
+                account.getBalance(),
+                account.getAccountType(),
+                account.isActive()
         );
     }
     private String generateIban() {

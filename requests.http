@@ -27,3 +27,49 @@ Content-Type: application/json
   "amount": 100.00,
   "description": "Initial deposit"
 }
+
+### Get account
+GET http://localhost:8080/api/accounts/85a013b8-cd1a-414b-b553-cea3f724a506
+
+### Withdraw
+POST http://localhost:8080/api/transactions/withdraw
+Content-Type: application/json
+
+{
+  "accountId": "85a013b8-cd1a-414b-b553-cea3f724a506",
+  "amount": 30.00,
+  "description": "ATM withdrawal"
+}
+
+### Get account
+GET http://localhost:8080/api/accounts/85a013b8-cd1a-414b-b553-cea3f724a506
+
+### Withdraw too much money
+POST http://localhost:8080/api/transactions/withdraw
+Content-Type: application/json
+
+{
+  "accountId": "85a013b8-cd1a-414b-b553-cea3f724a506",
+  "amount": 100.00,
+  "description": "Too much money"
+}
+
+### Withdraw impossible amount
+POST http://localhost:8080/api/transactions/withdraw
+Content-Type: application/json
+
+{
+  "accountId": "85a013b8-cd1a-414b-b553-cea3f724a506",
+  "amount": 999999.00,
+  "description": "Too much money"
+}
+
+### TEST 999999 WITH BODY
+POST http://localhost:8080/api/transactions/withdraw
+Content-Type: application/json
+
+{
+  "accountId": "85a013b8-cd1a-414b-b553-cea3f724a506",
+  "amount": 999999.00,
+  "description": "Too much money"
+}

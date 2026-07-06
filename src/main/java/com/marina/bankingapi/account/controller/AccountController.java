@@ -6,6 +6,7 @@ import com.marina.bankingapi.account.service.AccountService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/accounts")
@@ -17,5 +18,10 @@ public class AccountController {
     @PostMapping
     public AccountResponse createAccount(@Valid @RequestBody CreateAccountRequest request) {
         return accountService.createAccount(request);
+    }
+
+    @GetMapping("/{id}")
+    public AccountResponse getAccountById(@PathVariable UUID id) {
+        return accountService.getAccountById(id);
     }
 }

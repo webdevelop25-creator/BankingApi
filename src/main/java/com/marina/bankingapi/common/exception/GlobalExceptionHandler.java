@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+
 import java.time.LocalDateTime;
 import java.util.Map;
 
@@ -16,13 +17,29 @@ public class GlobalExceptionHandler {
     ) {
         Map<String, Object> errorResponse = Map.of(
                 "timestamp", LocalDateTime.now(),
-                "status", HttpStatus.CONFLICT.value(),
-                "error", "Conflict",
+                "status", HttpStatus.BAD_REQUEST.value(),
+                "error", "Bad Request",
                 "message", exception.getMessage()
         );
 
         return ResponseEntity
-                .status(HttpStatus.CONFLICT)
+                .status(HttpStatus.BAD_REQUEST)
                 .body(errorResponse);
     }
+    @ExceptionHandler(InsufficientFundsException.class)
+    public ResponseEntity<Map<String, Object>> handleInsufficientFunds(
+            InsufficientFundsException exception
+    ) {
+        Map<String, Object> errorResponse = Map.of(
+                "timestamp", LocalDateTime.now(),
+                "status", HttpStatus.BAD_REQUEST.value(),
+                "error", "Bad Request",
+                "message", exception.getMessage()
+        );
+
+        return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
+                .body(errorResponse);
+    }
+
 }
