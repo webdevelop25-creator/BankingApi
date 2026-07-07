@@ -73,3 +73,28 @@ Content-Type: application/json
   "amount": 999999.00,
   "description": "Too much money"
 }
+
+### Create second account
+POST http://localhost:8080/api/accounts
+Content-Type: application/json
+
+{
+  "userId": "e23d3bcc-c59a-4923-ae9e-cadc944efe55",
+  "accountType": "SAVINGS"
+}
+
+### Transfer
+POST http://localhost:8080/api/transactions/transfer
+Content-Type: application/json
+
+{
+  "sourceAccountId": "85a013b8-cd1a-414b-b553-cea3f724a506",
+  "targetAccountId": "6fa056c1-8844-4a13-b2f8-21bd3ea39739",
+  "amount": 5.00,
+  "description": "Transfer to savings"
+}
+### Get source account
+GET http://localhost:8080/api/accounts/85a013b8-cd1a-414b-b553-cea3f724a506
+
+### Get target account
+GET http://localhost:8080/api/accounts/6fa056c1-8844-4a13-b2f8-21bd3ea39739

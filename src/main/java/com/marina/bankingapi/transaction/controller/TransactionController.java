@@ -7,6 +7,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import com.marina.bankingapi.transaction.dto.WithdrawalRequest;
+import com.marina.bankingapi.transaction.dto.TransferRequest;
 
 @RestController
 @RequestMapping("/api/transactions")
@@ -22,5 +23,9 @@ public class TransactionController {
     @PostMapping("/withdraw")
     public TransactionResponse withdraw(@Valid @RequestBody WithdrawalRequest request) {
         return transactionService.withdraw(request);
+    }
+    @PostMapping ("/transfer")
+    public TransactionResponse transfer (@Valid @RequestBody TransferRequest request){
+        return transactionService.transfer(request);
     }
 }
