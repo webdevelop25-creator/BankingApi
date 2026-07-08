@@ -7,6 +7,8 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.Value;
 import org.springframework.web.bind.annotation.*;
+import com.marina.bankingapi.auth.dto.LoginRequest;
+import com.marina.bankingapi.auth.dto.LoginResponse;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -17,5 +19,10 @@ public class AuthController {
     @PostMapping("/register")
     public RegisterResponse register(@Valid @RequestBody RegisterRequest request){
         return authService.register(request);
+    }
+
+    @PostMapping("/login")
+    public LoginResponse login(@Valid @RequestBody LoginRequest request) {
+        return authService.login(request);
     }
 }

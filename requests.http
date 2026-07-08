@@ -30,6 +30,7 @@ Content-Type: application/json
 
 ### Get account
 GET http://localhost:8080/api/accounts/85a013b8-cd1a-414b-b553-cea3f724a506
+Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJtYXJpbmFAdGVzdC5kZSIsImlhdCI6MTc4MzUyNTAwMywiZXhwIjoxNzgzNjExNDAzfQ.JuyhPCvprOpQkr1oQCkwbBqLQG91YmnYfN85F4nLWVmZGltw1OdKHOGxjeVGr4Fv
 
 ### Withdraw
 POST http://localhost:8080/api/transactions/withdraw
@@ -98,3 +99,13 @@ GET http://localhost:8080/api/accounts/85a013b8-cd1a-414b-b553-cea3f724a506
 
 ### Get target account
 GET http://localhost:8080/api/accounts/6fa056c1-8844-4a13-b2f8-21bd3ea39739
+
+### Login
+POST http://localhost:8080/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "marina@test.de",
+  "password": "MeinPasswort123"
+}
+
