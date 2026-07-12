@@ -12,6 +12,7 @@ import com.marina.bankingapi.transaction.entity.Transaction;
 import com.marina.bankingapi.transaction.enums.TransactionType;
 import org.junit.jupiter.api.Assertions;
 import com.marina.bankingapi.common.exception.InsufficientFundsException;
+import com.marina.bankingapi.transaction.dto.TransferRequest;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -75,6 +76,7 @@ public class TransactionServiceImplTest {
         Mockito.verify(transactionRepository).save(Mockito.any(Transaction.class));
 
     }
+
     @Test
     void shouldThrowExceptionWhenBalanceIsInsufficient() {
         UUID accountId = UUID.randomUUID();
@@ -108,5 +110,74 @@ public class TransactionServiceImplTest {
                 transactionRepository,
                 Mockito.never()
         ).save(Mockito.any(Transaction.class));
+    }
+
+    @Test
+    void shouldTransferMoneyBetweenAccounts() {
+        UUID sourceAccountId = UUID.randomUUID();
+        UUID targetAccountId = UUID.randomUUID();
+
+        Account sourceAccount = Account.builder()
+                .id(sourceAccountId)
+                .balance(new BigDecimal("100.00"))
+                .active(true)
+                .build();
+
+        Account targetAccount = Account.builder()
+                .id(targetAccountId)
+                .balance(new BigDecimal("20.00"))
+                .active(true)
+                .build();
+
+        TransferRequest request = new TransferRequest(
+                sourceAccountId,
+                targetAccountId,
+                new BigDecimal("30.00"),
+                "Transfer to savings"
+        );
+
+        Transaction savedTransaction = Transaction.builder()
+                .id(UUID.randomUUID())
+                .amount(new BigDecimal("30.00"))
+                .type(TransactionType.TRANSFER)
+                .description("Transfer to savings")
+                .createdAt(LocalDateTime.now())
+                .sourceAccount(sourceAccount)
+                .targetAccount(targetAccount)
+                .build();
+
+        Mockito.when(accountRepository.findById(sourceAccountId))
+                .thenReturn(Optional.of(sourceAccount));
+
+        Mockito.when(accountRepository.findById(targetAccountId))
+                .thenReturn(Optional.of(targetAccount));
+
+        Mockito.when(transactionRepository.save(Mockito.any(Transaction.class)))
+                .thenReturn(savedTransaction);
+
+        TransactionResponse response = transactionService.transfer(request);
+
+        Assertions.assertEquals(
+                new BigDecimal("70.00"),
+                sourceAccount.getBalance()
+        );
+
+        Assertions.assertEquals(
+                new BigDecimal("50.00"),
+                targetAccount.getBalance()
+        );
+
+        Assertions.assertEquals(
+                TransactionType.TRANSFER,
+                response.type()
+        );
+
+        Assertions.assertEquals(
+                new BigDecimal("30.00"),
+                response.amount()
+        );
+
+        Mockito.verify(transactionRepository)
+                .save(Mockito.any(Transaction.class));
     }
 }
