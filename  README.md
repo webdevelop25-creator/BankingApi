@@ -84,6 +84,7 @@ After starting the application:
 ```
 http://localhost:8080/swagger-ui/index.html
 ```
+![Swagger UI](docs/images/swagger-ui.png)
 
 ## Running the application
 
