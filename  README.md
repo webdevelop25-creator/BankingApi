@@ -2,6 +2,35 @@
 
 A RESTful Banking API built with Spring Boot.
 
+## Architecture
+
+```text
+                +----------------------+
+                |     REST Client      |
+                | Swagger / HTTP       |
+                +----------+-----------+
+                           |
+                           v
+                +----------------------+
+                |     Controller       |
+                +----------+-----------+
+                           |
+                           v
+                +----------------------+
+                |      Service         |
+                +----------+-----------+
+                           |
+                           v
+                +----------------------+
+                |    Repository        |
+                +----------+-----------+
+                           |
+                           v
+                +----------------------+
+                | PostgreSQL (Docker)  |
+                +----------------------+
+```
+
 ## Features
 
 - User registration
@@ -14,7 +43,6 @@ A RESTful Banking API built with Spring Boot.
 - Global exception handling
 - API documentation with Swagger
 - Unit tests with JUnit and Mockito
-
 
 ## Technologies
 
@@ -48,25 +76,25 @@ src
 
 ### Authentication
 
-| Method | Endpoint |
-|--------|----------|
-| POST | /api/auth/register |
-| POST | /api/auth/login |
+| Method | Endpoint           |
+|--------|--------------------|
+| POST   | /api/auth/register |
+| POST   | /api/auth/login    |
 
 ### Accounts
 
-| Method | Endpoint |
-|--------|----------|
-| POST | /api/accounts |
-| GET | /api/accounts/{id} |
+| Method | Endpoint           |
+|--------|--------------------|
+| POST   | /api/accounts      |
+| GET    | /api/accounts/{id} |
 
 ### Transactions
 
-| Method | Endpoint |
-|--------|----------|
-| POST | /api/transactions/deposit |
-| POST | /api/transactions/withdraw |
-| POST | /api/transactions/transfer |
+| Method | Endpoint                   |
+|--------|----------------------------|
+| POST   | /api/transactions/deposit  |
+| POST   | /api/transactions/withdraw |
+| POST   | /api/transactions/transfer |
 
 ## Authentication
 
@@ -87,9 +115,11 @@ After starting the application:
 ```
 http://localhost:8080/swagger-ui/index.html
 ```
+
 ![Swagger UI](docs/images/swagger-ui.png)
 
 ## Running the application
+
 ## Run with Docker
 
 Make sure Docker Desktop is running.
@@ -137,6 +167,24 @@ Run all tests:
 ```bash
 ./mvnw test
 ```
+
+## Project Status
+
+✅ Completed
+
+Current version: **v1.0**
+
+Implemented:
+
+- User registration
+- JWT authentication
+- Account management
+- Deposit
+- Withdrawal
+- Money transfer
+- Swagger documentation
+- Docker support
+- Unit tests
 
 ## Author
 
