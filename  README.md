@@ -14,6 +14,8 @@ A RESTful Banking API built with Spring Boot.
 - Global exception handling
 - API documentation with Swagger
 - Unit tests with JUnit and Mockito
+- Docker
+- Docker Compose
 
 ## Technologies
 
@@ -87,6 +89,39 @@ http://localhost:8080/swagger-ui/index.html
 ![Swagger UI](docs/images/swagger-ui.png)
 
 ## Running the application
+## Run with Docker
+
+Make sure Docker Desktop is running.
+
+Start the application and PostgreSQL:
+
+```bash
+docker compose up --build -d
+```
+
+Check the running containers:
+
+```bash
+docker ps
+```
+
+Open Swagger UI:
+
+```text
+http://localhost:8080/swagger-ui/index.html
+```
+
+Stop the containers:
+
+```bash
+docker compose down
+```
+
+To also remove the PostgreSQL volume and all Docker database data:
+
+```bash
+docker compose down -v
+```
 
 ```bash
 git clone https://github.com/YOUR_GITHUB_USERNAME/BankingApi.git

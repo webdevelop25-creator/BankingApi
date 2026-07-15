@@ -28,8 +28,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     protected void doFilterInternal(
             HttpServletRequest request,
             HttpServletResponse response,
-            FilterChain filterChain)
-            throws ServletException, IOException {
+            FilterChain filterChain
+    ) throws ServletException, IOException {
 
         String authHeader = request.getHeader("Authorization");
 
@@ -37,26 +37,38 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             filterChain.doFilter(request, response);
             return;
         }
+
         String token = authHeader.substring(7);
 
-        if (!jwtService.isTokenValid(token)) {
+        try {
+            if (!jwtService.isTokenValid(token)) {
+                response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                return;
+            }
+
+            String email = jwtService.extractEmail(token);
+
+            User user = userRepository.findByEmail(email)
+                    .orElseThrow(() -> new RuntimeException("User not found"));
+
+            if (SecurityContextHolder.getContext().getAuthentication() == null) {
+                UsernamePasswordAuthenticationToken authenticationToken =
+                        new UsernamePasswordAuthenticationToken(
+                                user.getEmail(),
+                                null,
+                                Collections.emptyList()
+                        );
+
+                SecurityContextHolder.getContext()
+                        .setAuthentication(authenticationToken);
+            }
+
             filterChain.doFilter(request, response);
-            return;
+
+        } catch (Exception exception) {
+            SecurityContextHolder.clearContext();
+            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         }
-        String email = jwtService.extractEmail(token);
-        User user = userRepository.findByEmail(email)
-                .orElseThrow(() -> new RuntimeException("User not found"));
-
-        UsernamePasswordAuthenticationToken authenticationToken =
-                new UsernamePasswordAuthenticationToken(
-                        user.getEmail(),
-                        null,
-                        Collections.emptyList()
-                );
-
-        SecurityContextHolder.getContext().setAuthentication(authenticationToken);
-
-        filterChain.doFilter(request, response);
     }
 }
 
