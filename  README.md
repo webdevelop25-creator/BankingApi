@@ -14,8 +14,7 @@ A RESTful Banking API built with Spring Boot.
 - Global exception handling
 - API documentation with Swagger
 - Unit tests with JUnit and Mockito
-- Docker
-- Docker Compose
+
 
 ## Technologies
 
@@ -31,6 +30,8 @@ A RESTful Banking API built with Spring Boot.
 - Swagger / OpenAPI
 - JUnit 5
 - Mockito
+- Docker
+- Docker Compose
 
 ## Project Structure
 
