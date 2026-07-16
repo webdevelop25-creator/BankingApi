@@ -87,7 +87,7 @@ public class TransactionServiceImpl implements TransactionService {
     @Transactional
     public TransactionResponse transfer(TransferRequest request) {
         Account sourceAccount = accountRepository.findById(request.sourceAccountId())
-                .orElseThrow(() -> new RuntimeException("Source Account not found"));
+                .orElseThrow(() -> new RuntimeException("Source account not found"));
 
         Account targetAccount = accountRepository.findById(request.targetAccountId())
                 .orElseThrow(() -> new RuntimeException("Target account not found"));
