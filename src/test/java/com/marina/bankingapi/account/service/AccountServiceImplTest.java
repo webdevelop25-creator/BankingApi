@@ -1,17 +1,16 @@
 package com.marina.bankingapi.account.service;
 
-import org.junit.jupiter.api.Assertions;
-import com.marina.bankingapi.account.repository.AccountRepository;
-import com.marina.bankingapi.auth.repository.UserRepository;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 import com.marina.bankingapi.account.dto.AccountResponse;
 import com.marina.bankingapi.account.dto.CreateAccountRequest;
 import com.marina.bankingapi.account.entity.Account;
 import com.marina.bankingapi.account.enums.AccountType;
+import com.marina.bankingapi.account.repository.AccountRepository;
 import com.marina.bankingapi.auth.entity.User;
-
+import com.marina.bankingapi.auth.repository.UserRepository;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
 import java.math.BigDecimal;
 import java.util.Optional;

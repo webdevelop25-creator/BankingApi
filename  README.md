@@ -43,6 +43,8 @@ A RESTful Banking API built with Spring Boot.
 - Global exception handling
 - API documentation with Swagger
 - Unit tests with JUnit and Mockito
+- Controller tests with MockMvc
+- Request validation
 
 ## Technologies
 
@@ -58,6 +60,7 @@ A RESTful Banking API built with Spring Boot.
 - Swagger / OpenAPI
 - JUnit 5
 - Mockito
+- MockMvc
 - Docker
 - Docker Compose
 
@@ -160,6 +163,7 @@ cd BankingApi
 ./mvnw spring-boot:run
 ```
 
+````markdown
 ## Tests
 
 Run all tests:
@@ -167,6 +171,16 @@ Run all tests:
 ```bash
 ./mvnw test
 ```
+The project includes:
+
+- Unit tests with JUnit 5 and Mockito
+- Controller tests with MockMvc
+- Request validation tests
+
+Current test coverage:
+
+- **73% Line Coverage**
+- **83% Method Coverage**
 
 ## Project Status
 
@@ -182,9 +196,10 @@ Implemented:
 - Deposit
 - Withdrawal
 - Money transfer
-- Swagger documentation
+- Request validation
+- REST API documentation with Swagger
 - Docker support
-- Unit tests
+- Unit and controller tests
 
 ## Author
 
