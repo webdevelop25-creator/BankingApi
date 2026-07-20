@@ -163,7 +163,6 @@ cd BankingApi
 ./mvnw spring-boot:run
 ```
 
-````markdown
 ## Tests
 
 Run all tests:
@@ -171,6 +170,7 @@ Run all tests:
 ```bash
 ./mvnw test
 ```
+
 The project includes:
 
 - Unit tests with JUnit 5 and Mockito
